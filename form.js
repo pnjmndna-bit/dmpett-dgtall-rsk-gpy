@@ -31,7 +31,7 @@ window.onload = () => {
 
 };
 
-/* FORMAT NOMOR */
+/* FORMAT NOMOR OTOMATIS */
 phoneInput.addEventListener(
 "input",
 (e) => {
@@ -43,33 +43,61 @@ phoneInput.addEventListener(
     ''
     );
 
-    /* MAX */
-    angka =
-    angka.substring(0,13);
-
     let hasil = "";
 
-    /* 812 */
-    if(angka.length > 0){
+    /* =====================
+       AWAL 0
+       0812-3456-7890
+    ===================== */
+    if(angka.startsWith("0")){
 
-        hasil +=
+        angka =
+        angka.substring(0,13);
+
+        hasil =
+        angka.substring(0,4);
+
+        if(angka.length >= 5){
+
+            hasil += "-" +
+            angka.substring(4,8);
+
+        }
+
+        if(angka.length >= 9){
+
+            hasil += "-" +
+            angka.substring(8,13);
+
+        }
+
+    }
+
+    /* =====================
+       AWAL 8
+       812-3456-7890
+    ===================== */
+    else{
+
+        angka =
+        angka.substring(0,12);
+
+        hasil =
         angka.substring(0,3);
 
-    }
+        if(angka.length >= 4){
 
-    /* 812-3456 */
-    if(angka.length >= 3){
+            hasil += "-" +
+            angka.substring(3,7);
 
-        hasil += "-" +
-        angka.substring(3,7);
+        }
 
-    }
+        if(angka.length >= 8){
 
-    /* 812-3456-7890 */
-    if(angka.length >= 7){
+            hasil += "-" +
+            angka.substring(7,12);
 
-        hasil += "-" +
-        angka.substring(7,13);
+        }
 
     }
 
@@ -139,16 +167,19 @@ lanjutBtn.addEventListener(
 
     /* AMBIL NOMOR */
     const nomor =
-    phoneInput.value.replace(
-    /\D/g,
-    ''
-    );
+phoneInput.value;
+
+const angkaNomor =
+nomor.replace(/\D/g, '');
 
     /* VALIDASI */
     if(
-        nomor.length < 9 ||
-        nomor.charAt(0) !== "8"
-    ){
+    angkaNomor.length < 9 ||
+    (
+        angkaNomor.charAt(0) !== "8" &&
+        angkaNomor.charAt(0) !== "0"
+    )
+){
 
         if(navigator.vibrate){
 
